@@ -13,7 +13,9 @@ dataset=$3
 version=$4
 seed=$5
 
-work_dir=$(cd ../../../../ && pwd)
+work_dir=$(cd ../../ && pwd)
 
 current_working_dir=$(pwd)
 python3 ../runner.py "${model_type}" "${work_dir}" ${version} "$(dirname "$current_working_dir")/configs/${model_type}/${dataset}.json" "${seed}"
+# python runner.py "0" "/home/ec2-user/xlmc-llm/siamesexml" 0 "/home/ec2-user/xlmc-llm/siamesexml/siamesexml/configs/SiameseXML/LF-AmazonTitles-131K.json" "108"
+# ./run_main.sh 0 SiameseXML LF-AmazonTitles-131K 0 108

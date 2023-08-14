@@ -1,0 +1,9 @@
+numpy
+torch
+scipy
+Cython
+six
+hnswlib
+matplotlib
+tqdm
+h5py

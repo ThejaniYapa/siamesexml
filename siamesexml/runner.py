@@ -1,12 +1,15 @@
+import os
+import sys
 import libs.parameters as parameters
 import json
-import sys
-import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+sys.path.append(parent_dir)
+print(sys.path)
 from main import main
 import shutil
 import tools.evaluate as evalaute
 import tools.surrogate_mapping as surrogate_mapping
-
 
 def create_surrogate_mapping(data_dir, g_config, seed):
     """
@@ -48,7 +51,6 @@ def create_surrogate_mapping(data_dir, g_config, seed):
             tmp_model_dir, 'surrogate_mapping.txt')
     return data_stats, mapping
 
-
 def evaluate(g_config, data_dir, pred_fname, filter_fname=None, betas=-1, n_learners=1):
     if n_learners == 1:
         func = evalaute.main
@@ -74,7 +76,6 @@ def evaluate(g_config, data_dir, pred_fname, filter_fname=None, betas=-1, n_lear
         save=g_config["save_predictions"])
     return ans
 
-
 def print_run_stats(train_time, model_size, avg_prediction_time, fname=None):
     line = "-"*30 
     out = f"Training time (sec): {train_time:.2f}\n"
@@ -85,7 +86,6 @@ def print_run_stats(train_time, model_size, avg_prediction_time, fname=None):
     if fname is not None:
         with open(fname, "a") as fp:
             fp.write(out)
-
 
 def run_siamesexml(work_dir, pipeline, version, seed, config):
 
@@ -101,7 +101,8 @@ def run_siamesexml(work_dir, pipeline, version, seed, config):
 
     # Directory and filenames
     data_dir = os.path.join(work_dir, 'data')
-
+    print("data_dir:",data_dir)
+    
     filter_fname = os.path.join(data_dir, dataset, 'filter_labels_test.txt')
     if not os.path.isfile(filter_fname):
         filter_fname = None
@@ -189,13 +190,15 @@ def run_siamesexml(work_dir, pipeline, version, seed, config):
     return os.path.join(result_dir, f"score_{g_config['beta']:.2f}.npz"), \
         train_time, model_size, avg_prediction_time
 
-
 if __name__ == "__main__":
     pipeline = sys.argv[1]
     work_dir = sys.argv[2]
     version = sys.argv[3]
     config = sys.argv[4]
     seed = int(sys.argv[5])
+    
+
+    print("pipeline",pipeline)
     if pipeline == "SiameseXML" or pipeline == "SiameseXML++":
         run_siamesexml(
             pipeline=pipeline,

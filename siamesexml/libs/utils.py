@@ -1,7 +1,14 @@
+import sys
 import numpy as np
 import json
 import os
 from scipy.sparse import save_npz
+
+"""script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+sys.path.append(parent_dir)
+print("parent_dir",parent_dir)
+print(sys.path)"""
 from xclib.utils.sparse import _map_cols
 
 

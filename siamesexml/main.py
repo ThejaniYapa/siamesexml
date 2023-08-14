@@ -3,8 +3,9 @@ import numpy as np
 import pickle
 import torch
 import torch.utils.data
-import libs.utils as utils
 import models.network as network
+
+import libs.utils as utils
 import libs.shortlist as shortlist
 import libs.model as model_utils
 import libs.optimizer as optimizer

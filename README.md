@@ -34,8 +34,10 @@ Code for _SiameseXML: Siamese networks meet extreme classifiers with 100M labels
 
 ```txt
 * Download the (zipped file) BoW features from XML repository.  
+
 * Extract the zipped file into data directory. 
 * Yf.txt file contains label features; Either change the file name of make a soft-link to lbl_X_Xf.txt
+    
 * The following files should be available in <work_dir>/data/<dataset> for new datasets (ignore the next step)
     - trn_X_Xf.txt
     - trn_X_Y.txt
@@ -48,6 +50,20 @@ Code for _SiameseXML: Siamese networks meet extreme classifiers with 100M labels
     - test.txt
     - fasttextB_embeddings_300d.npy or fasttextB_embeddings_512d.npy 
 ```
+``` 
+  # TRIED
+  mkdir data
+  cd data
+  sudo yum install gdown
+
+  Find the id from URL:
+  Ex: when URL is "https://drive.google.com/file/d/1VlfcdJKJA99223fLEawRmrXhXpwjwJKn/view?usp=sharing" 
+  ID is '1VlfcdJKJA99223fLEawRmrXhXpwjwJKn'
+  gdown --id '1VlfcdJKJA99223fLEawRmrXhXpwjwJKn'
+  unzip LF-AmazonTitles-131K.bow.zip
+
+  cp LF-AmazonTitles-131K/Yf.txt LF-AmazonTitles-131K/lbl_X_Xf.txt
+```
 
 ### Convert to new data format
 
@@ -58,7 +74,26 @@ perl convert_format.pl $data_dir/train.txt $data_dir/trn_X_Xf.txt $data_dir/trn_
 perl convert_format.pl $data_dir/test.txt $data_dir/tst_X_Xf.txt $data_dir/tst_X_Y.txt
 ```
 
+```
+# TRIED
+export data_dir=data/LF-AmazonTitles-131K
+perl siamesexml/tools/convert_format.pl $data_dir/train.txt $data_dir/trn_X_Xf.txt $data_dir/trn_X_Y.txt
+perl siamesexml/tools/convert_format.pl $data_dir/test.txt $data_dir/tst_X_Xf.txt $data_dir/tst_X_Y.txt
+```
+
 ## Example use cases
+
+# Setting up python env
+requirements.txt
+
+Install xclib library
+```
+git clone https://github.com/kunaldahiya/pyxclib.git
+cp xclib to <working_dir>/xclib
+cd siamesexml/run_scripts
+./run_main.sh 0 SiameseXML LF-AmazonTitles-131K 0 108
+```
+
 
 ---
 
@@ -70,6 +105,14 @@ The given code can be utilized as follows. A json file is used to specify archit
 ./run_main.sh 0 SiameseXML LF-AmazonTitles-131K 0 108
 ```
 
+```
+siamesexml/run_scripts/run_main.sh 0 SiameseXML LF-AmazonTitles-131K 0 108
+chmod -R 764 siamesexml/run_scripts/
+
+
+cd siamesexml/run_scripts
+
+```
 ## Full Documentation
 
 ```txt
